@@ -5,3 +5,15 @@ body {
 input[type="number"] {
     width: 30px;
 }
+
+.title {
+    text-align: center;
+}
+
+h1.title {
+    margin-bottom: -8px;
+}
+
+h2.title {
+    margin-bottom: 42px;
+}

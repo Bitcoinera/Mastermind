@@ -9,8 +9,9 @@
 <body>
 
 <div>
-    <h1>MASTERMIND JUEGO DE LOS MUERTOS Y HERIDOS</h1>
-    <h2>REGISTRO DE JUGADAS</h2>
+    <h1 class="title">MASTERMIND:</h1>
+    <h2 class="title">UN JUEGO DE MUERTOS Y HERIDOS</h1>
+    <h3>REGISTRO DE JUGADAS</h3>
     <?php
 
     function gen_rand_number() {
@@ -34,28 +35,34 @@
 
     $message = "";
     if (isset($_POST['submitButton'])){ //check if form was submitted
-        $num1 = $_POST['num1']; //get input text
-        $num2 = $_POST['num2']; //get input text
-        $num3 = $_POST['num3']; //get input text
-        $num4 = $_POST['num4']; //get input text
+        $num1 = $_POST['num1']; 
+        $num2 = $_POST['num2']; 
+        $num3 = $_POST['num3'];
+        $num4 = $_POST['num4'];
         $message = "Success! You entered: ". $num1 . $num2 . $num3 . $num4;
         echo $message;
         echo "<hr>";
         $rand_num_str = strval($GLOBALS['rand_number']);
 
         $num_arr = array($num1, $num2, $num3, $num4);
-        debug_to_console($num_arr);
-        $hurts = 0;
+        $hurts = 0; // number of 'heridos'
+        $deads = 0; // number of 'muertos'
+        $rand_num_arr = str_split($rand_num_str);
 
         foreach ($num_arr as &$value) {
-            if (strpos($rand_num_str, $value) == true) {
-                debug_to_console($value);
-                debug_to_console($GLOBALS['rand_number']);
-                $hurts = $hurts + 1;
+            if (strpos($rand_num_str, $value) !== false) {
+                $hurts++;
+
+                $key = array_search($value, $rand_num_arr);
+
+                if ($num_arr[$key] === $value) {
+                    $deads++;
+                }
             } 
         }
 
         echo "Heridos hay " . $hurts . "<br>";
+        echo "Muertos hay " . $deads . "<br>";
     }
     ?>
         <label for="num1">Introduce el número</label>
